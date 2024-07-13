@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import heapq
+import time
 
 
 class Node:
@@ -8,7 +9,7 @@ class Node:
         self.left = None
         self.right = None
         self.val = key
-        self.color = color  # Additional argument to store the color of the node
+        self.color = color # Additional argument to store the color of the node
         self.elements = []
         heapq.heappush(self.elements, key)
 
@@ -36,7 +37,7 @@ def draw_tree(tree_root):
 
     colors = [node[1]['color'] for node in tree.nodes(data=True)]  # Collect node colors to display
 
-    plt.figure(figsize=(8, 5))
+    plt.figure(figsize=(8, 5), num=1)
     nx.draw(tree, pos=pos, with_labels=True, arrows=False, node_size=2500, node_color=colors)
     plt.show()
 
@@ -70,18 +71,69 @@ def add_to_tree(root, element):
             add_to_tree(root.left, element)
 
 
-# Creating the tree
-root = Node(0)
-add_node(root, 4)
-add_node(root, 5)
-add_node(root, 10)
-add_node(root, 1)
-add_node(root, 3)
-add_node(root, 7)
-add_node(root, 64)
-add_node(root, 23)
-add_node(root, 44)
-create_tree(root)
+def visit_dfs(root, node):
+    if node:
+        node.color = '#1296F0'
+        draw_tree(root)
+        node.color = 'skyblue'
 
-# Displaying the tree
-draw_tree(root)
+        visit_dfs(root, node.left)
+        visit_dfs(root, node.right)
+
+
+def visit_bfs(root):
+    if root is None:
+        return
+
+    queue = []
+
+    queue.append(root)
+
+    while(len(queue) > 0):
+        node = queue.pop(0)
+        node.color = '#1296F0'
+        draw_tree(root)
+        node.color = 'skyblue'
+
+        while plt.fignum_exists(1):
+            pass
+
+        if node.left is not None:
+            queue.append(node.left)
+
+        if node.right is not None:
+            queue.append(node.right)
+
+
+def main():
+    while True:
+        command = input('Type "dfs" or "bfs" to choose the traversal ("exit" or "close" to leave):\n')
+
+        # Creating the tree
+        root = Node(0)
+        add_node(root, 4)
+        add_node(root, 5)
+        add_node(root, 10)
+        add_node(root, 1)
+        add_node(root, 3)
+        add_node(root, 7)
+        add_node(root, 64)
+        add_node(root, 23)
+        add_node(root, 44)
+        create_tree(root)
+
+        if command in ['close', 'exit']:
+            print('Goodbye!')
+            break
+        elif command == 'dfs':
+            print('You have chosen dfs')
+            visit_dfs(root, root)
+        elif command == 'bfs':
+            print('You have chosen bfs')
+            visit_bfs(root)
+        else:
+            print('Please use commands!')
+
+
+if __name__ == '__main__':
+    main()
