@@ -1,7 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import heapq
-import time
 
 
 class Node:
