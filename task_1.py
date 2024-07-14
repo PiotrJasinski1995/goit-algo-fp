@@ -163,23 +163,11 @@ llist.insert_at_end(25)
 print("Linked list:")
 llist.print_list()
 
-# Delete a node
-llist.delete_node(10)
-
-print("\nThe linked list after deleting the node with data 10:")
-llist.print_list()
-
-# Searching for an item in a linked list
-print("\nSearching for element 15:")
-element = llist.search_element(15)
-if element:
-    print(element.data)
-
 print("\nThe linked list after reversal:")
 llist.reverse_list()
 llist.print_list()
 
-print("\nThe linked list after merge sorting:")
+print("\nThe linked list after merge sort algorithm:")
 llist.mergeSort(llist.head)
 llist.print_list()
 

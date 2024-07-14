@@ -74,7 +74,7 @@ def visit_dfs(root, node):
     if node:
         node.color = '#1296F0'
         draw_tree(root)
-        node.color = 'skyblue'
+        node.color = '#90EE90'
 
         visit_dfs(root, node.left)
         visit_dfs(root, node.right)
@@ -92,7 +92,7 @@ def visit_bfs(root):
         node = queue.pop(0)
         node.color = '#1296F0'
         draw_tree(root)
-        node.color = 'skyblue'
+        node.color = '#90EE90'
 
         while plt.fignum_exists(1):
             pass
