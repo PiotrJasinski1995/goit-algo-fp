@@ -12,23 +12,31 @@ def monte_carlo_simulation(num_experiments):
         dice_1 = random.randint(1, 6)
         dice_2 = random.randint(1, 6)
         sum = dice_1 + dice_2
-
         sum_dict[sum] += 1
-
-    for sum in probabilities_dict:
-        probability = round((sum_dict[sum] / float(num_experiments)) * 100, 2)
-        probabilities_dict[sum] = f'{probability}% ({sum_dict[sum]}/{num_experiments})'
     
+    print_probabilities_table(sum_dict, num_experiments)
+
+
+def print_probabilities_table(data, number_of_experiments):
     # create header
     head = ['Sum', 'Probability']
 
+    percent_data = {item: f'{round((data[item] / float(num_experiments)) * 100, 2)}% ({data[item]}/{num_experiments})' for item in data}
+
     # display table
-    print(f'\nFor {num_experiments} experiments:')
-    print(tabulate(probabilities_dict.items(), headers=head, tablefmt="grid"))
+    print(f'\nFor {number_of_experiments} experiments:')
+    print(tabulate(percent_data.items(), headers=head, tablefmt="grid"))
 
 
-num_experiments = 15000
+# Theoretical data
+num_experiments = 36
+sum_dict = {2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6, 8: 5, 9: 4, 10: 3, 11: 2, 12: 1}
+print("THEORETICAL DATA:")
+print_probabilities_table(sum_dict, num_experiments)
+
+print("\nEXPERIMENTAL DATA:")
+num_experiments = 36
 monte_carlo_simulation(num_experiments)
 
-num_experiments = 36
+num_experiments = 15000
 monte_carlo_simulation(num_experiments)
